@@ -1517,7 +1517,7 @@ func (ch *ConversationsHandler) ConversationsUploadFileHandler(ctx context.Conte
 		title = filepath.Base(params.filePath)
 	}
 
-	uploadParams := slack.UploadFileV2Parameters{
+	uploadParams := slack.UploadFileParameters{
 		Channel:         params.channel,
 		File:            params.filePath,
 		Filename:        filepath.Base(params.filePath),
@@ -1533,9 +1533,9 @@ func (ch *ConversationsHandler) ConversationsUploadFileHandler(ctx context.Conte
 		zap.Int("size", uploadParams.FileSize),
 		zap.String("thread_ts", params.threadTs),
 	)
-	summary, err := ch.apiProvider.Slack().UploadFileV2Context(ctx, uploadParams)
+	summary, err := ch.apiProvider.Slack().UploadFileContext(ctx, uploadParams)
 	if err != nil {
-		ch.logger.Error("Slack UploadFileV2Context failed", zap.Error(err))
+		ch.logger.Error("Slack UploadFileContext failed", zap.Error(err))
 		return nil, err
 	}
 
